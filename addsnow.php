@@ -169,10 +169,14 @@ class Addsnow extends Module
         $helper->table = $this->table;
         $helper->default_form_language = $lang->id;
         $helper->module = $this;
-        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ?
+            Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submit_'.$this->name;
-        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false).'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false).
+            '&configure='.$this->name.
+            '&tab_module='.$this->tab.
+            '&module_name='.$this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->fields_value['ADDSNOW_ENABLED'] = Configuration::get('ADDSNOW_ENABLED');
         $helper->fields_value['ADDSNOW_PARTICLES_NUMBER_DENSITY_VALUE_AREA'] = Configuration::get('ADDSNOW_PARTICLES_NUMBER_DENSITY_VALUE_AREA');
@@ -180,10 +184,7 @@ class Addsnow extends Module
         $helper->fields_value['ADDSNOW_PARTICLES_MOVE_SPEED'] = Configuration::get('ADDSNOW_PARTICLES_MOVE_SPEED');
         $helper->fields_value['ADDSNOW_PARTICLES_OPACITY_VALUE'] = Configuration::get('ADDSNOW_PARTICLES_OPACITY_VALUE');
         $helper->fields_value['ADDSNOW_PARTICLES_COLOR_VALUE'] = Configuration::get('ADDSNOW_PARTICLES_COLOR_VALUE');
-//        $helper->fields_value['ADDSNOW_PARTICLES_MOVE_SPEED'] = Configuration::get('ADDSNOW_PARTICLES_MOVE_SPEED');
         $helper->fields_value['ADDSNOW_INTERACTIVITY_EVENTS_ONHOOVER'] = Configuration::get('ADDSNOW_INTERACTIVITY_EVENTS_ONHOOVER');
-
-        
 
         return $helper->generateForm(array($fields_form));
     }
@@ -215,15 +216,13 @@ class Addsnow extends Module
     public function hookDisplayBeforeBodyClosingTag()
     {
         $vars = [
-            'addsnow_enabled'        => (bool)Configuration::get('ADDSNOW_ENABLED'),
-            'addsnow_particles_number_density_value_area'   => Configuration::get('ADDSNOW_PARTICLES_NUMBER_DENSITY_VALUE_AREA'),
-            'addsnow_particles_size_value'   => Configuration::get('ADDSNOW_PARTICLES_SIZE_VALUE'),
-            'addsnow_particles_move_speed'   => Configuration::get('ADDSNOW_PARTICLES_MOVE_SPEED'),
-            'addsnow_particles_opacity_value'   => Configuration::get('ADDSNOW_PARTICLES_OPACITY_VALUE'),
-            'addsnow_particles_color_value'   => Configuration::get('ADDSNOW_PARTICLES_COLOR_VALUE'),
-            //'addsnow_particles_opacity_value'   => Configuration::get('ADDSNOW_PARTICLES_MOVE_SPEED'),
-            
-            'addsnow_interactivity_events_onhoover'   => Configuration::get('ADDSNOW_INTERACTIVITY_EVENTS_ONHOOVER')
+            'addsnow_enabled' => (bool)Configuration::get('ADDSNOW_ENABLED'),
+            'addsnow_particles_number_density_value_area' => Configuration::get('ADDSNOW_PARTICLES_NUMBER_DENSITY_VALUE_AREA'),
+            'addsnow_particles_size_value' => Configuration::get('ADDSNOW_PARTICLES_SIZE_VALUE'),
+            'addsnow_particles_move_speed' => Configuration::get('ADDSNOW_PARTICLES_MOVE_SPEED'),
+            'addsnow_particles_opacity_value' => Configuration::get('ADDSNOW_PARTICLES_OPACITY_VALUE'),
+            'addsnow_particles_color_value' => Configuration::get('ADDSNOW_PARTICLES_COLOR_VALUE'),
+            'addsnow_interactivity_events_onhoover' => Configuration::get('ADDSNOW_INTERACTIVITY_EVENTS_ONHOOVER')
         ];
 
         $this->context->smarty->assign($vars);
