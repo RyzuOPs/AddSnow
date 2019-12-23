@@ -15,7 +15,7 @@ class Addsnow extends Module
         $this->author_uri = 'https://ryszkiewicz.cloud';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array(
-            'min' => '1.7', 
+            'min' => '1.7',
             'max' => _PS_VERSION_);
         $this->bootstrap = true;
 
@@ -23,12 +23,11 @@ class Addsnow extends Module
 
         $this->displayName = $this->l('Add falling snowflakes');
         $this->description = $this->l('This module adds falling snowflakes to your store');
-        $this->confirmUninstall = $this->l('Uninstall module?');        
+        $this->confirmUninstall = $this->l('Uninstall module?');
     }
 
     public function install()
     {
-
         if (Shop::isFeatureActive()) {
             Shop::setContext(Shop::CONTEXT_ALL);
         }
@@ -45,7 +44,7 @@ class Addsnow extends Module
 
     public function uninstall()
     {
-        return parent::uninstall() && 
+        return parent::uninstall() &&
             Configuration::deleteByName('ADDSNOW_ENABLED');
     }
 
@@ -53,14 +52,15 @@ class Addsnow extends Module
     {
         $output = '';
         
-        if (Tools::isSubmit('submit_'.$this->name)) {    
-            if ($this->postProcess())
-                $output .= $this->displayConfirmation($this->l('Settings saved') );
-            else 
-                $output .= $this->displayWarning($this->l('Something went wrong! Check form values.'));             
+        if (Tools::isSubmit('submit_'.$this->name)) {
+            if ($this->postProcess()) {
+                $output .= $this->displayConfirmation($this->l('Settings saved'));
+            } else {
+                $output .= $this->displayWarning($this->l('Something went wrong! Check form values.'));
+            }
         }
             
-        $vars = array (
+        $vars = array(
             $this->name . '_name' => $this->displayName,
         );
         
@@ -199,11 +199,10 @@ class Addsnow extends Module
             Configuration::updateValue('ADDSNOW_PARTICLES_OPACITY_VALUE', Tools::getValue('ADDSNOW_PARTICLES_OPACITY_VALUE')) &&
             Configuration::updateValue('ADDSNOW_PARTICLES_COLOR_VALUE', Tools::getValue('ADDSNOW_PARTICLES_COLOR_VALUE')) &&
             Configuration::updateValue('ADDSNOW_INTERACTIVITY_EVENTS_ONHOOVER', Tools::getValue('ADDSNOW_INTERACTIVITY_EVENTS_ONHOOVER'))
-            )
-         {
-            return True;
+            ) {
+            return true;
         } else {
-            return False;
+            return false;
         }
     }
 
@@ -214,7 +213,7 @@ class Addsnow extends Module
     }
 
     public function hookDisplayBeforeBodyClosingTag()
-    {        
+    {
         $vars = [
             'addsnow_enabled'        => (bool)Configuration::get('ADDSNOW_ENABLED'),
             'addsnow_particles_number_density_value_area'   => Configuration::get('ADDSNOW_PARTICLES_NUMBER_DENSITY_VALUE_AREA'),
@@ -229,6 +228,6 @@ class Addsnow extends Module
 
         $this->context->smarty->assign($vars);
 
-        return $this->fetch('module:'.$this->name.'/views/templates/hook/beforebodyclosingtag.tpl');      
+        return $this->fetch('module:'.$this->name.'/views/templates/hook/beforebodyclosingtag.tpl');
     }
 }
